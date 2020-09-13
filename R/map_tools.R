@@ -27,7 +27,7 @@ base_map_global <- function(data_day, map_param, pal_param){
     addProviderTiles(providers$CartoDB.Positron) %>% # un type de carte (affichage)
     fitBounds(~-100,-50,~80,80) %>%
     addLegend("bottomright", pal = pal_param, values = data_day$deathsper100k, # les intervalles (0-50-100)
-              title = "<small>Morts pour 100,000</small>")
+              title = "<small>Morts pour 100,000 (cumul)</small>")
 }
 
 
