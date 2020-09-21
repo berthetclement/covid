@@ -17,6 +17,7 @@ Ces stats serviront aussi au font de carte.
 }
 \seealso{
 Other covid stats: 
+\code{\link{add_stats2}()},
 \code{\link{add_stats}()},
 \code{\link{global_stats}()}
 }

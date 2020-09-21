@@ -58,7 +58,7 @@ add_map_stats <- function(spatial_df){
   spatial_df
 }
 
-globalVariables(c("cases", "deaths", "new_cases", "date"))
+globalVariables(c("cases", "deaths", "new_cases", "date", "recovered"))
 
 #' @export
 #' @title Stats monde.
@@ -77,6 +77,53 @@ global_stats <- function(global_df){
 
 
 
+# add stats 2 ----
+# comptage des nouveaux cas depuis une date de départ
+
+#' @export
+#' @title Stats recalculées.
+#' @description Re comptage des cas comme nouveaux cas.
+#'
+#' @importFrom dplyr select group_by mutate slice
+#' @param global_data Data frame des donnees globales (cas/morts/nouveaux cas).
+#' @return Data.frame.
+#' @family covid stats
+
+add_stats2 <- function(global_data){
+  global_data$date <- format(as.Date(global_data$date,"%m/%d/%y"))
+
+  # tri par date pour comptage new cases/new deaths/new recover
+  global_data <- global_data[order(global_data$Country, global_data$date),]
+
+  tt <- global_data %>% mutate(new_cases = lag(global_data$cases,1),
+                               new_deaths = lag(global_data$deaths,1),
+                               new_recovered = lag(global_data$recovered,1)
+  )
+
+  # init (lag NA)
+  tt$new_cases[1] <- tt$cases[1]
+  tt$new_deaths[1] <- tt$deaths[1]
+  tt$new_recovered[1] <- tt$recovered[1]
+
+  # calcul
+  tt$new_cases <- tt$cases - tt$new_cases
+  tt$new_deaths <- tt$deaths - tt$new_deaths
+  tt$new_recovered <- tt$recovered - tt$new_recovered
+
+  # selection des valeurs non negatives
+  group_no_neg <- tt %>% group_by(Country) %>% slice(-1)
+
+  # maj des nouveaux cas
+  group_neg <- tt %>% group_by(Country) %>% slice(1) %>%
+    mutate(
+      new_cases = cases,
+      new_deaths = deaths,
+      new_recovered = recovered
+    )
+  #
+  ok = rbind(group_no_neg, group_neg)
+  ok
+}
 
 
 
