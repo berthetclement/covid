@@ -90,7 +90,6 @@ global_stats <- function(global_df){
 #' @family covid stats
 
 add_stats2 <- function(global_data){
-  global_data$date <- format(as.Date(global_data$date,"%m/%d/%y"))
 
   # tri par date pour comptage new cases/new deaths/new recover
   global_data <- global_data[order(global_data$Country, global_data$date),]
