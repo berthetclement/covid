@@ -19,6 +19,7 @@ Aggregation des donnees.
 Other covid stats: 
 \code{\link{add_map_stats}()},
 \code{\link{add_stats2}()},
-\code{\link{add_stats}()}
+\code{\link{add_stats}()},
+\code{\link{do_gt_table}()}
 }
 \concept{covid stats}

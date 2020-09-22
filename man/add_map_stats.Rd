@@ -19,6 +19,7 @@ Ces stats serviront aussi au font de carte.
 Other covid stats: 
 \code{\link{add_stats2}()},
 \code{\link{add_stats}()},
+\code{\link{do_gt_table}()},
 \code{\link{global_stats}()}
 }
 \concept{covid stats}

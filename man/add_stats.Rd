@@ -19,6 +19,7 @@ Les nouveaux cas, deces, guerisons du jour.
 Other covid stats: 
 \code{\link{add_map_stats}()},
 \code{\link{add_stats2}()},
+\code{\link{do_gt_table}()},
 \code{\link{global_stats}()}
 }
 \concept{covid stats}

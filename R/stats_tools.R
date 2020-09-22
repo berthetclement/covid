@@ -58,7 +58,7 @@ add_map_stats <- function(spatial_df){
   spatial_df
 }
 
-globalVariables(c("cases", "deaths", "new_cases", "date", "recovered"))
+globalVariables(c("cases", "deaths", "new_cases", "date", "recovered", "deathsper100k", "per100k"))
 
 #' @export
 #' @title Stats monde.
@@ -76,8 +76,6 @@ global_stats <- function(global_df){
 
 
 
-
-# add stats 2 ----
 # comptage des nouveaux cas depuis une date de départ
 
 #' @export
@@ -125,7 +123,27 @@ add_stats2 <- function(global_data){
 }
 
 
+#' @export
+#' @title Tableau dynamique
+#' @description Tableau avec presentation [gt()]
+#'
+#' @importFrom gt gt fmt_number tab_header md tab_source_note
+#' @param df Data frame pour onglet "pays".
+#' @param niveau Ex : "pays", "continent"
+#' @return Data.frame.
+#' @family covid stats
 
+do_gt_table <- function(df, niveau){
+  df %>%
+    gt() %>%
+    fmt_number(columns = vars(cases, deaths), decimals = 0) %>%
+    fmt_number(columns = vars(per100k, deathsper100k), decimals = 1) %>%
+    tab_header(
+      title = md("Cumul a partir de la *\"date de depart\"*"),
+      subtitle = md("Selection par ***Niveau / Continent/Pays***")
+    ) %>%
+    tab_source_note(md(paste0("*Tableau dynamique des donnees* ", "***",niveau, "***")))
+}
 
 
 
