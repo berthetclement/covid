@@ -18,7 +18,7 @@ Data.frame.
 Tableau avec presentation \code{\link[=gt]{gt()}}
 }
 \seealso{
-Other covid stats:
+Other covid stats: 
 \code{\link{add_map_stats}()},
 \code{\link{add_stats2}()},
 \code{\link{add_stats}()},

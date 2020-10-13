@@ -20,6 +20,7 @@ L'objectif est de faciliter les jointures.
 \seealso{
 Other data tools: 
 \code{\link{data_covid}()},
+\code{\link{data_recod_dom}()},
 \code{\link{data_recod}()}
 }
 \concept{data tools}

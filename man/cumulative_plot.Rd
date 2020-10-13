@@ -4,12 +4,16 @@
 \alias{cumulative_plot}
 \title{Graphique des cas cumules jusqu'a date.}
 \usage{
-cumulative_plot(df_aggregated, plot_date, col)
+cumulative_plot(df_aggregated, plot_date, y_var_name, ylabel, col)
 }
 \arguments{
-\item{df_aggregated}{Data frame agrege des donnees globales (cas/morts/nouveaux cas).}
+\item{df_aggregated}{Data frame agrege (granulatite globale).}
 
 \item{plot_date}{Date en caracteres ("2020-01-25").}
+
+\item{y_var_name}{Nom de la variable a ploter.}
+
+\item{ylabel}{Label axe des y.}
 
 \item{col}{Code couleur ("#cc4c02")}
 }

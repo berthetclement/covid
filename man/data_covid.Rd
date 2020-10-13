@@ -4,10 +4,12 @@
 \alias{data_covid}
 \title{Import depuis repos Github.}
 \usage{
-data_covid(data_github)
+data_covid(data_github, ...)
 }
 \arguments{
 \item{data_github}{Lien html vers fichier .csv (repos Github).}
+
+\item{...}{Parametres \code{\link[data.table:fread]{data.table::fread()}}}
 }
 \value{
 Objet de type data.table data.frame.
@@ -19,6 +21,7 @@ Donnés COVID au format ".csv".
 \href{https://github.com/CSSEGISandData/COVID-19}{sources} les sources.
 
 Other data tools: 
+\code{\link{data_recod_dom}()},
 \code{\link{data_recod}()},
 \code{\link{make_tidy_df}()}
 }
