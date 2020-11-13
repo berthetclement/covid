@@ -4,12 +4,14 @@
 \alias{cumul_new_plotly}
 \title{Graphique cumul (nouveaux cas) avec plotly.}
 \usage{
-cumul_new_plotly(df, var_count, col)
+cumul_new_plotly(df, var_count, ylabel, col)
 }
 \arguments{
 \item{df}{Data frame pour cuml global/pays/continent.}
 
 \item{var_count}{Variable du data frame correspondant a cas/mors.}
+
+\item{ylabel}{Label axe des y.}
 
 \item{col}{Codes couleurs pays ("#cc4c02", "#d84cff", \code{...})}
 }

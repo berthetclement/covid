@@ -9,11 +9,12 @@ globalVariables(c("region"))
 #' @param df Data frame pour cuml global/pays/continent.
 #' @param var_count Variable du data frame correspondant a cas/mors.
 #' @param col Codes couleurs pays ("#cc4c02", "#d84cff", \code{...})
+#' @param ylabel Label axe des y.
 #' @seealso [ggplotly()] pour plus de détails.
 #' @return plotly object.
 #' @family plotly tools
 
-cumul_plotly <- function(df, var_count, col){
+cumul_plotly <- function(df, var_count, ylabel, col){
   df$date <- as.Date(df$date)
   g = ggplot(df, aes(x = date, y = !!var_count, color = region, group = 1,
                      text=paste0(format(date, "%d %B %Y"),
@@ -21,7 +22,7 @@ cumul_plotly <- function(df, var_count, col){
                                  !!var_count))) +
     geom_line() +
     geom_point(size = 1, alpha = 0.8) +
-    ylab("cumul") +
+    ylab(ylabel) +
     theme_bw() +
     scale_colour_manual(values=col) +
     scale_y_continuous(labels = function(l) {trans = l / 1000; paste0(trans, "K")}) +
@@ -45,18 +46,19 @@ cumul_plotly <- function(df, var_count, col){
 #' @param df Data frame pour cuml global/pays/continent.
 #' @param var_count Variable du data frame correspondant a cas/mors.
 #' @param col Codes couleurs pays ("#cc4c02", "#d84cff", \code{...})
+#' @param ylabel Label axe des y.
 #' @seealso [ggplotly()] pour plus de détails.
 #' @return plotly object.
 #' @family plotly tools
 
-cumul_new_plotly <- function(df, var_count, col){
+cumul_new_plotly <- function(df, var_count, ylabel, col){
   df$date <- as.Date(df$date)
   g = ggplot(df, aes(x = date, y = !!var_count, fill = region,
                      text=paste0(format(date, "%d %B %Y"),
                                  "\n", region, ": ",
                                  !!var_count))) +
     geom_bar(position="stack", stat="identity") +
-    ylab("nouveaux") + theme_bw() +
+    ylab(ylabel) + theme_bw() +
     scale_fill_manual(values=col) +
     scale_y_continuous(labels = function(l) {trans = l / 1000; paste0(trans, "K")}) +
     theme(legend.title = element_blank(), legend.position = "", plot.title = element_text(size=10))
@@ -77,11 +79,12 @@ cumul_new_plotly <- function(df, var_count, col){
 #' @param df Data frame pour cuml global/pays/continent.
 #' @param var_count Variable du data frame correspondant a cas/mors.
 #' @param col Codes couleurs pays ("#cc4c02", "#d84cff", \code{...})
+#' @param ylabel Label axe des y.
 #' @seealso [ggplotly()] pour plus de détails.
 #' @return plotly object.
 #' @family plotly tools
 
-cumul_plotly_log <- function(df, var_count, col){
+cumul_plotly_log <- function(df, var_count, ylabel, col){
   df$date <- as.Date(df$date)
   g = ggplot(df, aes(x = date, y = !!var_count, color = region, group = 1,
                      text=paste0(format(date, "%d %B %Y"),
@@ -89,7 +92,7 @@ cumul_plotly_log <- function(df, var_count, col){
                                  !!var_count))) +
     geom_line() +
     geom_point(size = 1, alpha = 0.8) +
-    ylab("cumulative (log10)") +
+    ylab(ylabel) +
     theme_bw() +
     scale_y_continuous(trans="log10") +
     scale_colour_manual(values=col) +
