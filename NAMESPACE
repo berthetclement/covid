@@ -3,6 +3,8 @@
 export(add_map_stats)
 export(add_stats)
 export(add_stats2)
+export(add_stats_global)
+export(add_stats_reg)
 export(base_map_global)
 export(cumul_new_plotly)
 export(cumul_plotly)

@@ -145,8 +145,96 @@ do_gt_table <- function(df, niveau){
     tab_source_note(md(paste0("*Tableau dynamique des donnees* ", "***",niveau, "***")))
 }
 
+##
+# onglet regions/departements
+##
+
+# recalcul pour somme date de depart global france
+
+#' @export
+#' @title Stats recalculées pour l'onglet regions/departements.
+#' @description Re comptage des cas (cumul) comme nouveaux cas (à date) pour la France au global.
+#'
+#' @importFrom dplyr select group_by mutate slice
+#' @param df_france_global Data frame des donnees globales (cas/morts/gueris).
+#' @return Data.frame.
+#' @family covid stats
+
+add_stats_global <- function(df_france_global){
+
+  # tri par date pour comptage new cases/new deaths/new recover
+  df_france_global <- df_france_global[order(df_france_global$date),]
+
+  tt <- df_france_global %>% mutate(new_cases = lag(df_france_global$cases,1),
+                                    new_deaths = lag(df_france_global$deaths,1),
+                                    new_recovered = lag(df_france_global$recovered,1)
+  )
+
+  # init (lag NA)
+  tt$new_cases[1] <- tt$cases[1]
+  tt$new_deaths[1] <- tt$deaths[1]
+  tt$new_recovered[1] <- tt$recovered[1]
+
+  # calcul
+  tt$new_cases <- tt$cases - tt$new_cases
+  tt$new_deaths <- tt$deaths - tt$new_deaths
+  tt$new_recovered <- tt$recovered - tt$new_recovered
+
+  # recomptage de la premiere ligne
+  tt$new_cases[1] <- tt$cases[1]
+  tt$new_deaths[1] <- tt$deaths[1]
+  tt$new_recovered[1] <- tt$recovered[1]
+
+  tt
+}
 
 
 
+# recalcul pour somme date de depart region
 
+#' @export
+#' @title Stats recalculées pour l'onglet regions/departements.
+#' @description Re comptage des cas (cumul) comme nouveaux cas (à date) pour les regions.
+#'
+#' @importFrom dplyr select group_by mutate slice
+#' @param global_data Data frame des donnees globales (cas/morts/gueris).
+#' @return Data.frame.
+#' @family covid stats
+
+
+add_stats_reg <- function(global_data){
+
+  # tri par date pour comptage new cases/new deaths/new recover
+  global_data <- global_data[order(global_data$region, global_data$date),]
+
+  tt <- global_data %>% mutate(new_cases = lag(global_data$cases,1),
+                               new_deaths = lag(global_data$deaths,1),
+                               new_recovered = lag(global_data$recovered,1)
+  )
+
+  # init (lag NA)
+  tt$new_cases[1] <- tt$cases[1]
+  tt$new_deaths[1] <- tt$deaths[1]
+  tt$new_recovered[1] <- tt$recovered[1]
+
+  # calcul
+  tt$new_cases <- tt$cases - tt$new_cases
+  tt$new_deaths <- tt$deaths - tt$new_deaths
+  tt$new_recovered <- tt$recovered - tt$new_recovered
+
+  # selection des valeurs non negatives
+  group_no_neg <- tt %>% group_by(region) %>% slice(-1)
+
+
+  # maj des nouveaux cas
+  group_neg <- tt %>% group_by(region) %>% slice(1) %>%
+    mutate(
+      new_cases = cases,
+      new_deaths = deaths,
+      new_recovered = recovered
+    )
+  #
+  ok = rbind(group_no_neg, group_neg)
+  ok
+}
 

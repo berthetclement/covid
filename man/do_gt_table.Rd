@@ -21,6 +21,8 @@ Tableau avec presentation \code{\link[=gt]{gt()}}
 Other covid stats: 
 \code{\link{add_map_stats}()},
 \code{\link{add_stats2}()},
+\code{\link{add_stats_global}()},
+\code{\link{add_stats_reg}()},
 \code{\link{add_stats}()},
 \code{\link{global_stats}()}
 }

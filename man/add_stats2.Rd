@@ -18,6 +18,8 @@ Re comptage des cas comme nouveaux cas.
 \seealso{
 Other covid stats: 
 \code{\link{add_map_stats}()},
+\code{\link{add_stats_global}()},
+\code{\link{add_stats_reg}()},
 \code{\link{add_stats}()},
 \code{\link{do_gt_table}()},
 \code{\link{global_stats}()}
